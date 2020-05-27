@@ -12,6 +12,23 @@ specification of each task is in
 [gym/envs/\_\_init\_\_.py](https://github.com/openai/gym/blob/master/gym/envs/__init__.py).
 It's worth browsing through both.
 
+### Multi-Objective
+
+A number of environments for *multi-objective* optimization. If you didn't do the full install, you can install dependencies via `pip install -e '.[multi_objective]'`
+There are 2 differences with classic Gym envs:
+
+- The reward is not a scalar but a vector (a `np.ndarray`)
+- The `reward_range` property is replaced by `reward_space`, a `Gym.spaces.Box` specifying the range of rewards for each reward signal.
+
+The environments include:
+
+- `DeepSeaTreasure-v0` and `BountifulSeaTreasure-v0`: classic 2-objective gridworld env
+- `ResourceGathering-v0`: a 3-objective gridworld env
+- `Dam2Objectives-v0`, `Dam3Objectives-v0`, `Dam4Objectives-v0`: water-reservoir controller, with 1D continuous actions
+- `Minecart-v0`, `MinecartDeterministic-v0`, `MinecartSimpleDeterministic-v0`: The Minecart environment from [Dynamic Weights in Multi-Objective Deep Reinforcement Learning](https://arxiv.org/abs/1809.07803v2). It includes a deterministic variant (the mines always give the same amount of ores), and a simplified, single-mine variant.
+- `MOSuperMarioBrosSimpleMovement-v0` and others: A multi-objective wrapper around super mario (from [A Generalized Algorithm for Multi-Objective Reinforcement Learning and Policy Adaptation](https://arxiv.org/abs/1908.08342)). Take a look at [the single-objective environments](https://github.com/Kautenja/gym-super-mario-bros) for the different variants. Each environment is extended with different action_spaces: `RightOnly`, `SimpleMovement` and `ComplexMovement`.
+- `MOAntBulletEnv-v0` and others: A multi-objective wrapper around pybullet locomotion environments.
+
 ### Algorithmic
 
 These are a variety of algorithmic tasks, such as learning to copy a

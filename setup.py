@@ -12,6 +12,7 @@ extras = {
   'classic_control': [],
   'mujoco': ['mujoco_py>=1.50, <2.0', 'imageio'],
   'robotics': ['mujoco_py>=1.50, <2.0', 'imageio'],
+  'multi_objective': ['pygame', 'gym-super-mario-bros', 'pybullet']
 }
 
 # Meta dependency groups.
@@ -40,7 +41,10 @@ setup(name='gym',
         'envs/robotics/assets/hand/*.xml',
         'envs/robotics/assets/stls/fetch/*.stl',
         'envs/robotics/assets/stls/hand/*.stl',
-        'envs/robotics/assets/textures/*.png']
+        'envs/robotics/assets/textures/*.png',
+        'envs/multi_objective/minecart/configs/*.json',
+        'envs/multi_objective/minecart/images/*.png'
+        ]
       },
       tests_require=['pytest', 'mock'],
       python_requires='>=3.5',

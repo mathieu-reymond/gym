@@ -659,6 +659,109 @@ for game in ['adventure', 'air_raid', 'alien', 'amidar', 'assault', 'asterix', '
         )
 
 
+# multi-objective
+# ---------
+
+register(
+    id='DeepSeaTreasure-v0',
+    entry_point='gym.envs.multi_objective:DeepSeaTreasureEnv',
+    )
+register(
+    id='BountifulSeaTreasure-v0',
+    entry_point='gym.envs.multi_objective:BountyfulSeaTreasureEnv',
+    )
+register(
+    id='ResourceGathering-v0',
+    entry_point='gym.envs.multi_objective:ResourceGatheringEnv',
+    )
+register(
+    id='Dam2Objectives-v0',
+    entry_point='gym.envs.multi_objective:DamEnv',
+    kwargs={'nO': 2},
+    max_episode_steps=100,
+    )
+register(
+    id='Dam3Objectives-v0',
+    entry_point='gym.envs.multi_objective:DamEnv',
+    kwargs={'nO': 3},
+    max_episode_steps=100,
+    )
+register(
+    id='Dam4Objectives-v0',
+    entry_point='gym.envs.multi_objective:DamEnv',
+    kwargs={'nO': 4},
+    max_episode_steps=100,
+    )
+register(
+    id='Minecart-v0',
+    entry_point='gym.envs.multi_objective:MinecartEnv',
+    )
+register(
+    id='MinecartDeterministic-v0',
+    entry_point='gym.envs.multi_objective:MinecartDeterministicEnv',
+    )
+register(
+    id='MinecartSimpleDeterministic-v0',
+    entry_point='gym.envs.multi_objective:MinecartSimpleDeterministicEnv',
+    )
+# all super_mario variants
+mario_envs = ['SuperMarioBros-v0', 'SuperMarioBros-v1', 'SuperMarioBros-v2', 'SuperMarioBros-v3', 
+'SuperMarioBrosRandomStages-v0', 'SuperMarioBrosRandomStages-v1', 'SuperMarioBrosRandomStages-v2', 
+'SuperMarioBrosRandomStages-v3', 'SuperMarioBros2-v0', 'SuperMarioBros2-v1', 'SuperMarioBros-1-1-v0', 
+'SuperMarioBros-1-2-v0', 'SuperMarioBros-1-3-v0', 'SuperMarioBros-1-4-v0', 'SuperMarioBros-2-1-v0', 
+'SuperMarioBros-2-2-v0', 'SuperMarioBros-2-3-v0', 'SuperMarioBros-2-4-v0', 'SuperMarioBros-3-1-v0', 
+'SuperMarioBros-3-2-v0', 'SuperMarioBros-3-3-v0', 'SuperMarioBros-3-4-v0', 'SuperMarioBros-4-1-v0', 
+'SuperMarioBros-4-2-v0', 'SuperMarioBros-4-3-v0', 'SuperMarioBros-4-4-v0', 'SuperMarioBros-5-1-v0', 
+'SuperMarioBros-5-2-v0', 'SuperMarioBros-5-3-v0', 'SuperMarioBros-5-4-v0', 'SuperMarioBros-6-1-v0', 
+'SuperMarioBros-6-2-v0', 'SuperMarioBros-6-3-v0', 'SuperMarioBros-6-4-v0', 'SuperMarioBros-7-1-v0', 
+'SuperMarioBros-7-2-v0', 'SuperMarioBros-7-3-v0', 'SuperMarioBros-7-4-v0', 'SuperMarioBros-8-1-v0', 
+'SuperMarioBros-8-2-v0', 'SuperMarioBros-8-3-v0', 'SuperMarioBros-8-4-v0', 'SuperMarioBros-1-1-v1', 
+'SuperMarioBros-1-2-v1', 'SuperMarioBros-1-3-v1', 'SuperMarioBros-1-4-v1', 'SuperMarioBros-2-1-v1', 
+'SuperMarioBros-2-2-v1', 'SuperMarioBros-2-3-v1', 'SuperMarioBros-2-4-v1', 'SuperMarioBros-3-1-v1', 
+'SuperMarioBros-3-2-v1', 'SuperMarioBros-3-3-v1', 'SuperMarioBros-3-4-v1', 'SuperMarioBros-4-1-v1', 
+'SuperMarioBros-4-2-v1', 'SuperMarioBros-4-3-v1', 'SuperMarioBros-4-4-v1', 'SuperMarioBros-5-1-v1', 
+'SuperMarioBros-5-2-v1', 'SuperMarioBros-5-3-v1', 'SuperMarioBros-5-4-v1', 'SuperMarioBros-6-1-v1', 
+'SuperMarioBros-6-2-v1', 'SuperMarioBros-6-3-v1', 'SuperMarioBros-6-4-v1', 'SuperMarioBros-7-1-v1', 
+'SuperMarioBros-7-2-v1', 'SuperMarioBros-7-3-v1', 'SuperMarioBros-7-4-v1', 'SuperMarioBros-8-1-v1', 
+'SuperMarioBros-8-2-v1', 'SuperMarioBros-8-3-v1', 'SuperMarioBros-8-4-v1', 'SuperMarioBros-1-1-v2', 
+'SuperMarioBros-1-2-v2', 'SuperMarioBros-1-3-v2', 'SuperMarioBros-1-4-v2', 'SuperMarioBros-2-1-v2', 
+'SuperMarioBros-2-2-v2', 'SuperMarioBros-2-3-v2', 'SuperMarioBros-2-4-v2', 'SuperMarioBros-3-1-v2', 
+'SuperMarioBros-3-2-v2', 'SuperMarioBros-3-3-v2', 'SuperMarioBros-3-4-v2', 'SuperMarioBros-4-1-v2',
+'SuperMarioBros-4-2-v2', 'SuperMarioBros-4-3-v2', 'SuperMarioBros-4-4-v2', 'SuperMarioBros-5-1-v2', 
+'SuperMarioBros-5-2-v2', 'SuperMarioBros-5-3-v2', 'SuperMarioBros-5-4-v2', 'SuperMarioBros-6-1-v2', 
+'SuperMarioBros-6-2-v2', 'SuperMarioBros-6-3-v2', 'SuperMarioBros-6-4-v2', 'SuperMarioBros-7-1-v2', 
+'SuperMarioBros-7-2-v2', 'SuperMarioBros-7-3-v2', 'SuperMarioBros-7-4-v2', 'SuperMarioBros-8-1-v2', 
+'SuperMarioBros-8-2-v2', 'SuperMarioBros-8-3-v2', 'SuperMarioBros-8-4-v2', 'SuperMarioBros-1-1-v3', 
+'SuperMarioBros-1-2-v3', 'SuperMarioBros-1-3-v3', 'SuperMarioBros-1-4-v3', 'SuperMarioBros-2-1-v3', 
+'SuperMarioBros-2-2-v3', 'SuperMarioBros-2-3-v3', 'SuperMarioBros-2-4-v3', 'SuperMarioBros-3-1-v3', 
+'SuperMarioBros-3-2-v3', 'SuperMarioBros-3-3-v3', 'SuperMarioBros-3-4-v3', 'SuperMarioBros-4-1-v3', 
+'SuperMarioBros-4-2-v3', 'SuperMarioBros-4-3-v3', 'SuperMarioBros-4-4-v3', 'SuperMarioBros-5-1-v3', 
+'SuperMarioBros-5-2-v3', 'SuperMarioBros-5-3-v3', 'SuperMarioBros-5-4-v3', 'SuperMarioBros-6-1-v3', 
+'SuperMarioBros-6-2-v3', 'SuperMarioBros-6-3-v3', 'SuperMarioBros-6-4-v3', 'SuperMarioBros-7-1-v3', 
+'SuperMarioBros-7-2-v3', 'SuperMarioBros-7-3-v3', 'SuperMarioBros-7-4-v3', 'SuperMarioBros-8-1-v3', 
+'SuperMarioBros-8-2-v3', 'SuperMarioBros-8-3-v3', 'SuperMarioBros-8-4-v3']
+
+action_types = ['RIGHT_ONLY', 'SIMPLE_MOVEMENT', 'COMPLEX_MOVEMENT']
+for mario_env in mario_envs:
+    for action_type in action_types:
+        a_t = ''.join([w.capitalize() for w in action_type.split('_')])
+        i = mario_env.find('-')
+        env_name = f'MO{mario_env[:i]}{a_t}{mario_env[i:]}'
+        register(
+            id=env_name,
+            entry_point='gym.envs.multi_objective:make_mo_mario_env',
+            kwargs={'env_name': mario_env, 'actions': action_type}
+        )
+# pybullet locomotion envs
+bullet_envs = ['Walker2DBulletEnv-v0', 'HalfCheetahBulletEnv-v0', 'AntBulletEnv-v0', 'HopperBulletEnv-v0', 
+'HumanoidBulletEnv-v0']
+for bullet_env in bullet_envs:
+    register(
+            id=f'MO{bullet_env}',
+            entry_point='gym.envs.multi_objective:make_mo_pybullet_env',
+            kwargs={'env_name': bullet_env}
+        )
+
 # Unit test
 # ---------
 
