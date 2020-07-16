@@ -25,17 +25,17 @@ class CartPoleEnv(gym.Env):
 
     Observation:
         Type: Box(4)
-        Num	Observation               Min             Max
-        0	Cart Position             -4.8            4.8
-        1	Cart Velocity             -Inf            Inf
-        2	Pole Angle                -24 deg         24 deg
-        3	Pole Velocity At Tip      -Inf            Inf
+        Num     Observation               Min                     Max
+        0       Cart Position             -4.8                    4.8
+        1       Cart Velocity             -Inf                    Inf
+        2       Pole Angle                -0.418 rad (-24 deg)    0.418 rad (24 deg)
+        3       Pole Angular Velocity     -Inf                    Inf
 
     Actions:
         Type: Discrete(2)
-        Num	Action
-        0	Push cart to the left
-        1	Push cart to the right
+        Num   Action
+        0     Push cart to the left
+        1     Push cart to the right
 
         Note: The amount the velocity that is reduced or increased is not
         fixed; it depends on the angle the pole is pointing. This is because
@@ -54,7 +54,7 @@ class CartPoleEnv(gym.Env):
         the display).
         Episode length is greater than 200.
         Solved Requirements:
-        Considered solved when the average reward is greater than or equal to
+        Considered solved when the average return is greater than or equal to
         195.0 over 100 consecutive trials.
     """
 

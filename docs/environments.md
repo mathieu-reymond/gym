@@ -290,3 +290,21 @@ Learn more here: https://github.com/cjy1992/gym-carla
 The OpenModelica Microgrid Gym (OMG) package is a software toolbox for the simulation and control optimization of microgrids based on energy conversion by power electronic converters.
 
 Learn more here: https://github.com/upb-lea/openmodelica-microgrid-gym
+
+### RubiksCubeGym: OpenAI Gym environments for various twisty puzzles
+
+The RubiksCubeGym package provides enviromnents for twisty puzzles with  multiple reward functions to help simluate the methods used by humans.
+
+Learn more here: https://github.com/DoubleGremlin181/RubiksCubeGym
+
+### SlimeVolleyGym: A simple environment for single and multi-agent reinforcement learning
+
+A simple environment for benchmarking single and multi-agent reinforcement learning algorithms on a clone of Slime Volleyball game. Only dependencies are gym and numpy. Both state and pixel observation environments are available. The motivation of this environment is to easily enable trained agents to play against each other, and also facilitate the training of agents directly in a multi-agent setting, thus adding an extra dimension for evaluating an agent's performance.
+
+Learn more here: https://github.com/hardmaru/slimevolleygym
+
+### Gridworld: A simple 2D grid environment
+
+The Gridworld package provides grid-based environments to help simulate the results for model-based reinforcement learning algorithms. Initial release supports single agent system only.
+
+Learn more here: https://github.com/addy1997/Gridworld
