@@ -671,6 +671,10 @@ register(
     entry_point='gym.envs.multi_objective:BountyfulSeaTreasureEnv',
     )
 register(
+    id='BountifulSeaTreasure-v1',
+    entry_point='gym.envs.multi_objective:ConvexSeaTreasureEnv',
+    )
+register(
     id='ResourceGathering-v0',
     entry_point='gym.envs.multi_objective:ResourceGatheringEnv',
     )
@@ -761,6 +765,19 @@ for bullet_env in bullet_envs:
             entry_point='gym.envs.multi_objective:make_mo_pybullet_env',
             kwargs={'env_name': bullet_env}
         )
+
+# split_env
+register(
+    id='Split-v0',
+    entry_point='gym.envs.multi_objective:SplitEnv',
+    kwargs={'tunnel': 0}
+    )
+
+register(
+    id='Split10-v0',
+    entry_point='gym.envs.multi_objective:SplitEnv',
+    kwargs={'tunnel': 10}
+    )
 
 # Unit test
 # ---------

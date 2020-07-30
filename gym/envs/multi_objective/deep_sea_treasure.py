@@ -140,3 +140,21 @@ class BountyfulSeaTreasureEnv(DeepSeaTreasureEnv):
         pareto_front = lambda x: np.round(-45.64496 - (59.99308/-0.2756738)*(1 - np.exp(0.2756738*x)))
 
         return {(d, i): pareto_front(-(i+d)) for i, d in enumerate(self.depths)}
+
+
+class ConvexSeaTreasureEnv(DeepSeaTreasureEnv):
+
+    def __init__(self, width=11):
+        super(ConvexSeaTreasureEnv, self).__init__(width=width)
+
+    def _treasures(self):
+        return {(2, 0): 18,
+                (2, 1): 26,
+                (2, 2): 31,
+                (4, 3): 44,
+                (4, 4): 48.2,
+                (5, 5): 56,
+                (8, 6): 72,
+                (8, 7): 76.3,
+                (10, 8): 90,
+                (11, 9): 100}
