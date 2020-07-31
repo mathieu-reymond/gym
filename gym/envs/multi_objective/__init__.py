@@ -5,3 +5,4 @@ from gym.envs.multi_objective.super_mario import make_mo_mario_env
 from gym.envs.multi_objective.minecart.env import MinecartEnv, MinecartDeterministicEnv, MinecartSimpleDeterministicEnv
 from gym.envs.multi_objective.pybullet import make_mo_pybullet_env
 from gym.envs.multi_objective.split import SplitEnv
+from gym.envs.multi_objective.deed import DEED, FixedDEED

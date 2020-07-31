@@ -28,6 +28,8 @@ The environments include:
 - `Minecart-v0`, `MinecartDeterministic-v0`, `MinecartSimpleDeterministic-v0`: The Minecart environment from [Dynamic Weights in Multi-Objective Deep Reinforcement Learning](https://arxiv.org/abs/1809.07803v2). It includes a deterministic variant (the mines always give the same amount of ores), and a simplified, single-mine variant.
 - `MOSuperMarioBrosSimpleMovement-v0` and others: A multi-objective wrapper around super mario (from [A Generalized Algorithm for Multi-Objective Reinforcement Learning and Policy Adaptation](https://arxiv.org/abs/1908.08342)). Take a look at [the single-objective environments](https://github.com/Kautenja/gym-super-mario-bros) for the different variants. Each environment is extended with different action_spaces: `RightOnly`, `SimpleMovement` and `ComplexMovement`.
 - `MOAntBulletEnv-v0` and others: A multi-objective wrapper around pybullet locomotion environments.
+- `Split-v0`, `Split10-v0`: a simple environment with 2 tunnels, with the characteristic that one tunnel leads to higher expectated returns, but lower utilities, if the utility is `min(reward)`
+- `DEED-v0`, `DEEDFixed-v0`: generators need to meet the power demand, but want to minimize fuel cost and emissions (from [Dynamic Economic Emissions Dispatch Optimisation using Multi-Agent Reinforcement Learning](https://scholar.google.com/scholar?oi=bibs&hl=en&cluster=14224858825663550013))
 
 ### Algorithmic
 

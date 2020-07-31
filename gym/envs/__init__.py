@@ -779,6 +779,18 @@ register(
     kwargs={'tunnel': 10}
     )
 
+# DEED env
+register(
+    id='DEED-v0',
+    entry_point='gym.envs.multi_objective:DEED'
+    )
+
+register(
+    id='DEEDFixed-v0',
+    entry_point='gym.envs.multi_objective:FixedDEED'
+    )
+
+
 # Unit test
 # ---------
 
