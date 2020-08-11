@@ -236,7 +236,6 @@ class DistributionalDEED(OptimalDEED):
         min_range = np.minimum(np.abs(max_power-mean), np.abs(mean-min_power))
         distributed_power = np.random.normal(mean, min_range/self.std_factor)
         distributed_power = np.clip(distributed_power, min_power, max_power)
-        print(min_range, mean, distributed_power)
         # -1 since we ignored slack generator
         power[self.distributed-1] = distributed_power
         return power
