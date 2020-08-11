@@ -187,9 +187,64 @@ class FixedDEED(DEED):
         return super(FixedDEED, self).step(action)
 
 
+class OptimalDEED(DEED):
+    def __init__(self, controlled=1):
+        super(OptimalDEED, self).__init__()
+        self.action_space = Discrete(self.n_actions)
+        self.generators = np.array([
+            [137,179,272,288,230,264,282,308,383,352,395,409,358,304,242,165,150,209,282,329,286,161,127,157],
+            [274,245,245,245,251,314,291,294,337,380,407,430,384,354,314,241,218,261,337,414,344,341,264,211],
+            [126,134,136,150,176,197,208,247,250,295,314,324,335,258,200,171,171,221,226,274,327,282,210,171],
+            [160,115,124,165,174,179,214,219,250,295,298,298,298,298,298,293,276,267,250,269,269,238,188,186],
+            [122,145,152,187,219,226,237,241,241,241,241,241,241,241,241,206,206,214,224,236,236,209,199,152],
+            [69,86,95,101,114,131,157,158,158,159,159,159,159,159,159,154,131,137,148,154,156,108,92,115],
+            [62,73,80,94,120,122,122,122,126,127,128,129,129,129,129,129,127,127,127,128,128,125,94,65],
+            [53,80,91,101,111,118,117,117,119,119,119,119,119,119,119,119,109,109,109,112,116,95,83,68],
+            [40,51,64,70,75,75,75,79,79,79,79,79,79,79,79,79,79,79,79,79,79,68,65,52],
+            [13,26,30,44,51,52,52,54,55,55,55,55,55,55,55,42,52,53,54,54,54,52,43,34],
+        ])
+        # controlled generator index
+        assert controlled > 0, 'cannot control slack generator'
+        assert controlled < len(self.generators), 'not a valid generator index'
+        self.controlled = controlled
+
+    def initial_pnm(self):
+        # start with power output of timestep 0
+        return self.generators[:, 0]
+
+    def action_to_power(self, action):
+        # power is predefined for all generators (ignore slack)
+        power = self.generators[1:, self.hour].copy()
+        # override controlled turbine power with agent action
+        # -1 since we ignored the slack generator
+        power[self.controlled-1] = super(OptimalDEED, self).action_to_power(action)[self.controlled-1]
+        return power
+
+
+class DistributionalDEED(OptimalDEED):
+    def __init__(self, controlled=1, distributed=2):
+        super(DistributionalDEED, self).__init__(controlled=controlled)
+        assert distributed != controlled, 'the distributed generator cannot be the same as the controlled one'
+        self.distributed = distributed
+        self.std_factor = 3
+
+    def action_to_power(self, action):
+        power = super(DistributionalDEED, self).action_to_power(action)
+        max_power = np.clip(self.u_holder[:,12] + self.previous_pnm, self.u_holder[:,0], self.u_holder[:,1])[self.distributed]
+        min_power = np.clip(self.previous_pnm - self.u_holder[:,13], self.u_holder[:,0], self.u_holder[:,1])[self.distributed]
+        mean = self.generators[self.distributed, self.hour]
+        min_range = np.minimum(np.abs(max_power-mean), np.abs(mean-min_power))
+        distributed_power = np.random.normal(mean, min_range/self.std_factor)
+        distributed_power = np.clip(distributed_power, min_power, max_power)
+        print(min_range, mean, distributed_power)
+        # -1 since we ignored slack generator
+        power[self.distributed-1] = distributed_power
+        return power
+
+
 if __name__ == '__main__':
 
-    env = FixedDEED()
+    env = DistributionalDEED()
     o = env.reset()
     d = False
     rew = 0
