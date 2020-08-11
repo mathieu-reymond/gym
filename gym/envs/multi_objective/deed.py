@@ -227,6 +227,8 @@ class DistributionalDEED(OptimalDEED):
         assert distributed != controlled, 'the distributed generator cannot be the same as the controlled one'
         self.distributed = distributed
         self.std_factor = 3
+        # remove emission costs from distributed generator
+        self.u_holder[self.distributed, 7:12] = 0.
 
     def action_to_power(self, action):
         power = super(DistributionalDEED, self).action_to_power(action)
