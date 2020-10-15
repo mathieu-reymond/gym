@@ -104,20 +104,35 @@ class DeepSeaTreasureEnv(discrete.DiscreteEnv):
         return [(1., new_state, np.array(reward, dtype=np.float32), done)]
 
     def render(self, mode='rgb_array'):
-        tile_size = 30
+        tile_size = 20; font_size = tile_size/75
         img = np.full((self.shape[0]*tile_size, self.shape[1]*tile_size, 3), 255, np.uint8)
-
-        y = np.tile(np.arange(tile_size, (self.shape[0]+1)*tile_size, tile_size), self.shape[1])
-        x = np.repeat(np.arange(tile_size, (self.shape[1]+1)*tile_size, tile_size), self.shape[0])
-        for x_i in x:
-            for y_i in y:
-                cv2.circle(img, (x_i, y_i), 0, (255, 0, 0))
-
+        # get ground contour
+        coords = np.array([k for k in self._treasures().keys()])
+        # compute end of each treasure coordinate to make contour,
+        # swap y-x values, as y is first in treasure dict
+        coords = coords[:, [1, 0]].repeat(2, axis=0)
+        coords[1:-1:2, 0] = coords[2::2, 0]
+        coords = coords*tile_size + np.array([-1, 0])
+        x_lim, y_lim = img.shape[1], img.shape[0]
+        coords[-1, 0] = x_lim
+        sea_coords = np.concatenate((coords, np.array([[x_lim, 0], [0, 0]])))
+        treasure_coords = np.concatenate((coords, coords[::-1] + np.array([0, tile_size])))
+        bottom_coords = np.array([[x_lim-1, y_lim], [0, y_lim]])
+        bottom_coords = np.concatenate((coords+ np.array([0, tile_size]), bottom_coords))
+        cv2.fillPoly(img, sea_coords.astype(np.int32)[None], (255, 0, 0))
+        cv2.fillPoly(img, treasure_coords.astype(np.int32)[None], (0, 255, 0))
+        cv2.fillPoly(img, bottom_coords.astype(np.int32)[None], (0, 0, 255))
+        # put treasure values
         for c, t in self._treasures().items():
-            cv2.putText(img, str(t), (tile_size*c[1]+tile_size//2, tile_size*c[0]+tile_size//2), cv2.FONT_HERSHEY_SIMPLEX, .2, 255)
-        position = np.unravel_index(self.s, self.shape)
-        cv2.putText(img, 'sub', (tile_size*position[1]+tile_size//2, tile_size*position[0]+tile_size//2), cv2.FONT_HERSHEY_SIMPLEX, .2, 255)
+            textsize = cv2.getTextSize(str(t), cv2.FONT_HERSHEY_SIMPLEX, font_size, 1)[0]
+            treasure_coord = (tile_size*c[1]+tile_size//2-textsize[0]//2, tile_size*c[0]+tile_size//2+textsize[1]//2)
+            cv2.putText(img, str(t), treasure_coord, cv2.FONT_HERSHEY_SIMPLEX, font_size, (0,0,0))
+        # put submarine
+        p = np.unravel_index(self.s, self.shape)
+        p = [pi*tile_size for pi in p]
+        cv2.rectangle(img, (p[1], p[0]), (p[1]+tile_size, p[0]+tile_size), (255, 255, 255), -1)
 
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         return img
 
 
