@@ -3,6 +3,7 @@ from __future__ import print_function
 import math
 import random
 import os
+import json
 
 import numpy as np
 import scipy.stats
@@ -121,7 +122,9 @@ class Mine(object):
 
         for i, dist in enumerate(self.distributions):
             mean, std = dist.mean(), dist.std()
-            means[i] = truncated_mean(mean,std,0,INF)
+            if np.isnan(mean):
+                mean, std = dist.rvs(), 0
+            means[i] = truncated_mean(mean,std,0,np.inf)
 
         return means
 
@@ -263,8 +266,8 @@ class Minecart(Env):
             Args:
                 filename: JSON configuration filename
         """
-        import json
-        data = json.load(open(filename))
+        with open(filename) as f:
+            data = json.load(f)
         ore_colors = None if "ore_colors" not in data else data["ore_colors"]
         minecart = Minecart(
             ore_cnt=data["ore_cnt"],
@@ -617,3 +620,18 @@ def clip(val, lo, hi):
 
 def scl(c):
     return (c[0] / 255., c[1] / 255., c[2] / 255.)
+
+
+def truncated_mean(mean, std, a, b):
+    if std == 0:
+        return mean
+    from scipy.stats import norm
+    a = (a - mean) / std
+    b = (b - mean) / std
+    PHIB = norm.cdf(b)
+    PHIA = norm.cdf(a)
+    phib = norm.pdf(b)
+    phia = norm.pdf(a)
+
+    trunc_mean = (mean + ((phia - phib) / (PHIB - PHIA)) * std)
+    return trunc_mean
